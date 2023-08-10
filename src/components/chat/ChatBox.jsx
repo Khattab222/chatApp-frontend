@@ -1,12 +1,17 @@
 import React, { useContext } from 'react'
 import { chatcontext } from '../../context/ChatContext'
+import { Box } from '@mui/material';
 
 const ChatBox = () => {
-  const {getChat}=useContext(chatcontext)
+  const {selectedchat,getAllChats,allChats,setSelectedchat}= useContext(chatcontext);
+console.log(selectedchat);
   return (
-    <div>
-        ChatBox
-    </div>
+    <Box 
+    display={selectedchat?'flex':'none'}
+  
+    >
+        single chat
+    </Box>
   )
 }
 
