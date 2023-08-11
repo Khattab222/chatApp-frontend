@@ -24,7 +24,22 @@ const UpdateGroupChatModal = ({fetchAgain,setFetchAgain}) => {
       
   return (
     <div>
-        <Visibility onClick={handleOpen}/> 
+      <Box
+      borderRadius={3}
+      sx={{
+         mr:'15px' ,
+         p:'10px',
+         cursor:'pointer',
+         "&:hover": {
+             backgroundColor: "#38B2Ac",
+             color: "#fff",
+           },
+           transition:'all 0.5s'
+         }}
+      >
+
+        <Visibility sx={{cursor:'pointer'}} onClick={handleOpen}/> 
+      </Box>
       <Modal
         open={open}
         onClose={handleClose}
