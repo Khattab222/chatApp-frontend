@@ -1,11 +1,11 @@
 import { Notifications, Search } from '@mui/icons-material'
 import { AppBar, Avatar, Badge, Box, Button, Divider, Drawer, IconButton, Input, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material'
-import React, { useContext, useMemo, useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { UserContext } from '../../context/UserContext'
 import ProfileModal from '../Authentication/ProfileModal'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import axios from 'axios'
+
 import BaseUrl from '../../context/Api'
 import ChatLoading from '../chat/ChatLoading'
 import UserListItem from '../chat/UserListItem'
@@ -107,7 +107,7 @@ Search User ...
   </div>
   </Toolbar>
   </AppBar> 
-  <ProfileModal open={openmodal} setopenmodal={setopenmodal}/>
+  <ProfileModal user={loginuser} open={openmodal} setopenmodal={setopenmodal}/>
   <Drawer 
 
   sx={{width:'240px' }}

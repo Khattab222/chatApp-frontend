@@ -2,7 +2,7 @@ import { Box, Modal, Typography } from '@mui/material'
 import React, { useContext } from 'react'
 import { UserContext } from '../../context/UserContext';
 
-const ProfileModal = ({open,setopenmodal}) => {
+const ProfileModal = ({user,open,setopenmodal}) => {
   const {loginuser} = useContext(UserContext)
     const style = {
         position: 'absolute',
@@ -26,13 +26,13 @@ const ProfileModal = ({open,setopenmodal}) => {
     >
       <Box sx={style}>
           <Typography sx={{textAlign:'center'}} id="modal-modal-title" variant="h4" component="h2">
-            {loginuser.name}
+            {user.name}
           </Typography>
           <div>
-            <img style={{width:'100%',borderRadius:'5px'}} src={loginuser.pic} alt="" />
+            <img style={{width:'100%',borderRadius:'5px'}} src={user.pic} alt="" />
           </div>
           <Typography  id="modal-modal-description" sx={{ mt: 2,textAlign:'center',fontWeight:'bold' }}>
-            {loginuser.email}
+            {user.email}
           </Typography>
         </Box>
 

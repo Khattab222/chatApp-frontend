@@ -24,12 +24,12 @@ const getSender = (loginuser,chat) =>{
 // select chat
 const handleSelectChat = (chat) =>{
   setSelectedchat(chat);
-  console.log(selectedchat)
+
 }
   return (
     <Box
-    sx={{display:{md:'flex'},borderRadius:'10px'}}
- display={selectedchat?'none':'flex'}
+    sx={{borderRadius:'10px'}}
+ display={{xs:selectedchat?'none':'flex',md:'flex'}}
  flexDirection='column'
  p={2}
  bgcolor='#fff'

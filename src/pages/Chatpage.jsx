@@ -14,7 +14,7 @@ const Chatpage = () => {
 
      <SideDrawer/>
    
-  <Box sx={{display:'flex',justifyContent:'space-between',height:'91.5vh',p:'10px'}} >
+  <Box sx={{display:'flex',justifyContent:'space-between',minHeight:'90vh',p:'10px'}} >
 
    <MyChats/>
  
