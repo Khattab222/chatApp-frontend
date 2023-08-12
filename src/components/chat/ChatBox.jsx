@@ -5,7 +5,7 @@ import SingleChat from './SingleChat';
 
 const ChatBox = () => {
   const {selectedchat,getAllChats,allChats,setSelectedchat}= useContext(chatcontext);
-console.log(selectedchat);
+
   return (
     <Box 
     display={{xs:selectedchat?'flex':'none',md:'flex'}}

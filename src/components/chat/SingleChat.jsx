@@ -16,7 +16,7 @@ const SingleChat = () => {
     return loginuser._id === chat.POne._id? chat.PTwo :chat.POne
   }
   
-  console.log(selectedchat);
+
   const messageBoxStyle = {
     overflowY:"hidden",
     height:'100%',

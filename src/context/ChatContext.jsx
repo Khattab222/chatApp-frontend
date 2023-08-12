@@ -95,12 +95,27 @@ const addUserToGroup =async (chatId,userId)=>{
     
   }
 }
+// remove user from group
+const removeUserFromGroup =async (chatId,userId)=>{
+  const config = {
+    headers: {'authorization': `chat__${localStorage.getItem("token")}`}
+  }
+  try {
+    const {data} = await BaseUrl.delete(`/chat/remove/${chatId}/${userId}`,config);
+    setSelectedchat(data.chat)
+    console.log(data)
+  } catch (error) {
+
+    toast.error(error.response.data.Error)
+    
+  }
+}
 
 // remove user
 
 
     return(
-        <chatcontext.Provider value={{getChat,selectedchat,getAllChats,allChats,createGroup,setSelectedchat,UpdateChatName,addUserToGroup}}>
+        <chatcontext.Provider value={{getChat,removeUserFromGroup,selectedchat,getAllChats,allChats,createGroup,setSelectedchat,UpdateChatName,addUserToGroup}}>
             { props.children  }
         </chatcontext.Provider>
     )

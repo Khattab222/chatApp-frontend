@@ -45,7 +45,6 @@ const searchUsers = async(query) =>{
       }
       try {
         const {data} = await BaseUrl.get(`/auth/search?search=${query}`,config);
-        console.log(data);
         setsearchResult(data.users)
     } catch (error) {
         toast.error(error)

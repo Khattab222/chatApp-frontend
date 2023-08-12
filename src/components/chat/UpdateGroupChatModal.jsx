@@ -13,7 +13,7 @@ import UserListItem from './UserListItem';
 import { UserContext } from '../../context/UserContext';
 
 const UpdateGroupChatModal = ({fetchAgain,setFetchAgain}) => {
-  const {selectedchat,UpdateChatName,getAllChats,addUserToGroup}=useContext(chatcontext)
+  const {selectedchat,UpdateChatName,getAllChats,addUserToGroup,removeUserFromGroup}=useContext(chatcontext)
   const {searchResult,searchUsers}=useContext(UserContext)
     const [open, setOpen] = React.useState(false);
     const [chatName, setchatName] = useState("");
@@ -26,7 +26,7 @@ useEffect(() => {
   
 
 }, [])
-console.log(selectedchat)
+
 
 
 
@@ -34,8 +34,8 @@ console.log(selectedchat)
       console.info('You clicked the Chip.');
     };
   
-    const handleDelete = () => {
-      console.info('You clicked the delete icon.');
+    const handleDelete =async (userId) => {
+      await removeUserFromGroup(selectedchat._id,userId)
     };
     
 
@@ -67,7 +67,7 @@ const handleAddUser =async(userId) =>{
    if (user._id === userId) {
      return toast.error('user Already added')
    }
- }console.log(selectedchat._id)
+ }
 await  addUserToGroup(selectedchat._id,userId)
 }
     const style = {
@@ -115,12 +115,13 @@ await  addUserToGroup(selectedchat._id,userId)
           </Typography>
           <Box sx={{ mt: 2,display:'flex',flexWrap:'wrap',gap:1 }}>
             {
-              selectedchat?.groupUsers?.map((u) =>{
+              selectedchat?.groupUsers?.map((u,i) =>{
                 return (
                   <Chip
+                  key={i}
                   label={u.name}
                   onClick={handleClick}
-                  onDelete={handleDelete}
+                  onDelete={()=>handleDelete(u._id)}
                   color="success"
                   size="small"
                 />
@@ -141,9 +142,9 @@ await  addUserToGroup(selectedchat._id,userId)
           </Box>
           <Box>
             {
-              searchResult?searchResult.map((user)=>{
+              searchResult?searchResult.map((user,i)=>{
                 return (
-                  <UserListItem handleFunction={()=>handleAddUser(user._id)} user={user} />  
+                  <UserListItem key={i} handleFunction={()=>handleAddUser(user._id)} user={user} />  
                 )
               }):""
             }
