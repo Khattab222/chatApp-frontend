@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { chatcontext } from "../../context/ChatContext";
 
 const UserListItem = ({ user ,handleFunction}) => {
-  const { getChat } = useContext(chatcontext);
+
 
   const itemStyle = {
     display: "flex",

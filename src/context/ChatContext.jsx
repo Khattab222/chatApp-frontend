@@ -60,9 +60,47 @@ const createGroup = async(group) =>{
   }
 }
 
+// update chat name
+const UpdateChatName = async (id,chatName) =>{
+  const config = {
+    headers: {'authorization': `chat__${localStorage.getItem("token")}`}
+  }
+  try {
+    const {data} = await BaseUrl.put(`/chat/group/${id}`,chatName,config);
+    setSelectedchat(data.chat)
+    if (data.message === 'done') {
+      toast.success('update success')
+    }
+ 
+  } catch (error) {
+    toast.error(error.response.data.Error)
+    
+  }
+}
+
+
+
+// add user to group
+const addUserToGroup =async (chatId,userId)=>{
+  const config = {
+    headers: {'authorization': `chat__${localStorage.getItem("token")}`}
+  }
+  try {
+    const {data} = await BaseUrl.post(`/chat/addgroup/${chatId}/${userId}`,{},config);
+    setSelectedchat(data.chat)
+
+  } catch (error) {
+
+    toast.error(error.response.data.Error)
+    
+  }
+}
+
+// remove user
+
 
     return(
-        <chatcontext.Provider value={{getChat,selectedchat,getAllChats,allChats,createGroup,setSelectedchat}}>
+        <chatcontext.Provider value={{getChat,selectedchat,getAllChats,allChats,createGroup,setSelectedchat,UpdateChatName,addUserToGroup}}>
             { props.children  }
         </chatcontext.Provider>
     )
