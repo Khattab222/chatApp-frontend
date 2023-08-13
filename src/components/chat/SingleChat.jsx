@@ -1,4 +1,4 @@
-import { Avatar, Box, Typography } from '@mui/material';
+import { Avatar, Box, Button, Input, TextField, Typography } from '@mui/material';
 import React, { useContext, useState } from 'react'
 import { chatcontext } from '../../context/ChatContext';
 import { ArrowBackIos, Visibility } from '@mui/icons-material';
@@ -10,6 +10,7 @@ const SingleChat = () => {
   const {selectedchat,getAllChats,allChats,setSelectedchat}= useContext(chatcontext);
   const {loginuser}= useContext(UserContext)
   const [openmodal, setopenmodal] = useState(false);
+  const [newMessage, setNewMessage] = useState('')
 
 
   const getSender = (loginuser,chat) =>{
@@ -22,7 +23,11 @@ const SingleChat = () => {
     height:'100%',
     width:'100%',
     backgroundColor:'#E8E8E8',
-    borderRadius:'5px'
+    borderRadius:'5px',
+ 
+  }
+  const typinghandler =(e) =>{
+    setNewMessage(e.target.value);
   }
   return (
     <>
@@ -97,7 +102,16 @@ const SingleChat = () => {
             </Box>
             {/* chat message */}
 
-             <Box sx={messageBoxStyle}>
+             <Box display='flex' flexDirection='column' sx={messageBoxStyle}>
+             <Box flexGrow={1} >
+              sasa
+             </Box>
+           
+             <Box display='flex'>
+
+             <TextField onChange={typinghandler} fullWidth size="small" placeholder='type your message......'  variant="outlined" />
+             <Button variant='contained'>send</Button>
+             </Box>
 
              </Box>
 

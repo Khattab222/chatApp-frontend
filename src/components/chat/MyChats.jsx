@@ -24,6 +24,7 @@ const getSender = (loginuser,chat) =>{
 // select chat
 const handleSelectChat = (chat) =>{
   setSelectedchat(chat);
+  console.log(selectedchat);
 
 }
   return (
