@@ -24,7 +24,19 @@ const getChat = async (destId) =>{
   }
 }
 
+// access chat 
+const accessChat =async (destId) =>{
+  const config = {
+    headers: {'authorization': `chat__${localStorage.getItem("token")}`}
+  }
 
+  try {
+    const {data} = await BaseUrl.post(`/chat/access/${destId}`,{},config);
+    setSelectedchat(data.chat)
+  } catch (error) {
+    toast.error(error.response.data.Error)
+  }
+}
 // get all user chats
 const getAllChats = async () =>{
   try {
@@ -40,9 +52,21 @@ const getAllChats = async () =>{
 }
 
 
+// get single chat data 
+const getchatData = async (chatId) =>{
+  const config = {
+    headers: {'authorization': `chat__${localStorage.getItem("token")}`}
+  }
+  try {
+    const {data} =await BaseUrl.get(`/chat/ovo/${chatId}`,config);
+    console.log(data.chat)
+  } catch (error) {
+    toast.error(error.response.data.Error)
+  }
+}
+
 
 // create group 
-
 const createGroup = async(group) =>{
   const config = {
     headers: {'authorization': `chat__${localStorage.getItem("token")}`}
@@ -115,7 +139,7 @@ const removeUserFromGroup =async (chatId,userId)=>{
 
 
     return(
-        <chatcontext.Provider value={{getChat,removeUserFromGroup,selectedchat,getAllChats,allChats,createGroup,setSelectedchat,UpdateChatName,addUserToGroup}}>
+        <chatcontext.Provider value={{getChat,accessChat,getchatData,removeUserFromGroup,selectedchat,getAllChats,allChats,createGroup,setSelectedchat,UpdateChatName,addUserToGroup}}>
             { props.children  }
         </chatcontext.Provider>
     )

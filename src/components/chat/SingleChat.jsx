@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Input, TextField, Typography } from '@mui/material';
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { chatcontext } from '../../context/ChatContext';
 import { ArrowBackIos, Visibility } from '@mui/icons-material';
 import { UserContext } from '../../context/UserContext';
@@ -7,11 +7,20 @@ import ProfileModal from '../Authentication/ProfileModal';
 import UpdateGroupChatModal from './UpdateGroupChatModal';
 
 const SingleChat = () => {
-  const {selectedchat,getAllChats,allChats,setSelectedchat}= useContext(chatcontext);
+  const {selectedchat,getAllChats,allChats,setSelectedchat,getchatData}= useContext(chatcontext);
   const {loginuser}= useContext(UserContext)
   const [openmodal, setopenmodal] = useState(false);
   const [newMessage, setNewMessage] = useState('')
 
+
+  useEffect(() => {
+    if (selectedchat?._id) {
+      
+      getchatData(selectedchat?._id)
+    }
+    console.log(selectedchat)
+  }, [selectedchat])
+  
 
   const getSender = (loginuser,chat) =>{
     return loginuser._id === chat.POne._id? chat.PTwo :chat.POne
@@ -26,8 +35,15 @@ const SingleChat = () => {
     borderRadius:'5px',
  
   }
+
+  // handle typing message
   const typinghandler =(e) =>{
     setNewMessage(e.target.value);
+  }
+
+  // handle send message
+  const sendMessage = () =>{
+
   }
   return (
     <>
@@ -110,7 +126,7 @@ const SingleChat = () => {
              <Box display='flex'>
 
              <TextField onChange={typinghandler} fullWidth size="small" placeholder='type your message......'  variant="outlined" />
-             <Button variant='contained'>send</Button>
+             <Button onClick={sendMessage} variant='contained'>send</Button>
              </Box>
 
              </Box>

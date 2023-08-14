@@ -9,9 +9,11 @@ import { toast } from 'react-toastify'
 import BaseUrl from '../../context/Api'
 import ChatLoading from '../chat/ChatLoading'
 import UserListItem from '../chat/UserListItem'
+import { chatcontext } from '../../context/ChatContext'
 
 const SideDrawer = () => {
   const {loginuser} = useContext(UserContext);
+  const {accessChat} = useContext(chatcontext)
   const [anchorEl, setAnchorEl] =useState(null);
   const [openmodal, setopenmodal] = useState(false);
   const [showdrawer, setshowdrawer] = useState(false)
@@ -62,8 +64,11 @@ const [loading, setLoading] = useState(false)
 
 
 // access chat to user
-const accessChat = ()=>{
-  console.log("chaaaaaaaaaaaat")
+const handleAccessChat =async(userId)=>{
+
+await accessChat(userId)
+setshowdrawer(false)
+
 }
 
   return (
@@ -128,7 +133,7 @@ Search User ...
     
       searchResult?.map((user) =>{
         return(
-          <UserListItem  user={user} key={user._id} />
+          <UserListItem handleAccessChat={handleAccessChat}  user={user} key={user._id} />
         )
       })
     
