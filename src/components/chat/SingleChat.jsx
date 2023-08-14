@@ -53,7 +53,7 @@ const SingleChat = () => {
                </Box>
              <Box>
              {
-                    !selectedchat.isGroupChat? (
+                    !selectedchat?.isGroupChat? (
                         <Typography variant='h5' sx={{mr:1,display:'flex',alignItems:'center'}}>
                             <Avatar
                                 alt="Remy Sharp"
