@@ -77,6 +77,8 @@ const data = {
 setsubmitloading(true)
 await createGroup(data)
 setsubmitloading(false)
+
+
 setSelectedUsers([]);
 setSearch('')
 setGroupChatname('')

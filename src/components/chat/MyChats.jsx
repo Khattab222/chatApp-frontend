@@ -15,6 +15,9 @@ const MyChats = () => {
   useEffect(() => {
     getAllChats()
   }, [])
+  useEffect(() => {
+    getAllChats()
+  }, [selectedchat])
   
 const getSender = (loginuser,chat) =>{
   return loginuser._id === chat.POne._id? chat.PTwo.name :chat.POne.name
@@ -24,7 +27,7 @@ const getSender = (loginuser,chat) =>{
 // select chat
 const handleSelectChat = (chat) =>{
   setSelectedchat(chat);
-  console.log(selectedchat);
+
 
 }
   return (

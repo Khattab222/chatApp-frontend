@@ -47,7 +47,7 @@ const getAllChats = async () =>{
   
       setallChats(data.chats)
   } catch (error) {
-    console.log(error)
+    toast.error(error.response.data.Error)
   }
 }
 
@@ -59,7 +59,21 @@ const getchatData = async (chatId) =>{
   }
   try {
     const {data} =await BaseUrl.get(`/chat/ovo/${chatId}`,config);
-    console.log(data.chat)
+    
+  } catch (error) {
+    toast.error(error.response.data.Error)
+  }
+}
+// send a message
+const sendMessage = async (message) =>{
+  const config = {
+    headers: {'authorization': `chat__${localStorage.getItem("token")}`}
+  }
+  try {
+    
+    const {data} = await BaseUrl.post(`/chat/`,message,config);
+  
+    setSelectedchat(data.chat)
   } catch (error) {
     toast.error(error.response.data.Error)
   }
@@ -139,7 +153,7 @@ const removeUserFromGroup =async (chatId,userId)=>{
 
 
     return(
-        <chatcontext.Provider value={{getChat,accessChat,getchatData,removeUserFromGroup,selectedchat,getAllChats,allChats,createGroup,setSelectedchat,UpdateChatName,addUserToGroup}}>
+        <chatcontext.Provider value={{sendMessage,getChat,accessChat,getchatData,removeUserFromGroup,selectedchat,getAllChats,allChats,createGroup,setSelectedchat,UpdateChatName,addUserToGroup}}>
             { props.children  }
         </chatcontext.Provider>
     )

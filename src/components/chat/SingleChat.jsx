@@ -1,17 +1,32 @@
 import { Avatar, Box, Button, Input, TextField, Typography } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react'
 import { chatcontext } from '../../context/ChatContext';
-import { ArrowBackIos, Visibility } from '@mui/icons-material';
+import { ArrowBackIos, Padding, Visibility } from '@mui/icons-material';
 import { UserContext } from '../../context/UserContext';
 import ProfileModal from '../Authentication/ProfileModal';
 import UpdateGroupChatModal from './UpdateGroupChatModal';
+import { toast } from 'react-toastify';
+import ScrollableChat from './ScrollableChat';
 
 const SingleChat = () => {
-  const {selectedchat,getAllChats,allChats,setSelectedchat,getchatData}= useContext(chatcontext);
+  const {selectedchat,getAllChats,allChats,setSelectedchat,getchatData,sendMessage}= useContext(chatcontext);
   const {loginuser}= useContext(UserContext)
   const [openmodal, setopenmodal] = useState(false);
   const [newMessage, setNewMessage] = useState('')
 
+
+  const messageStyle = {
+    display: "flex",
+    flexDirection:'column',
+    overflowY:'scroll',
+    scrollbars:'none',
+    padding:'10px'
+  }
+
+  const getSender = (loginuser,chat) =>{
+    return loginuser._id === chat.POne._id? chat.PTwo.name :chat.POne.name
+  }
+  
 
   useEffect(() => {
     if (selectedchat?._id) {
@@ -22,10 +37,6 @@ const SingleChat = () => {
   }, [selectedchat])
   
 
-  const getSender = (loginuser,chat) =>{
-    return loginuser._id === chat.POne._id? chat.PTwo :chat.POne
-  }
-  
 
   const messageBoxStyle = {
     overflowY:"hidden",
@@ -39,10 +50,18 @@ const SingleChat = () => {
   // handle typing message
   const typinghandler =(e) =>{
     setNewMessage(e.target.value);
+   
   }
 
   // handle send message
-  const sendMessage = () =>{
+  const handleSendMessage = (e) =>{
+    e.preventDefault();
+    if (!newMessage) {
+      return toast.error('please type message')
+    }
+    sendMessage({messageText:newMessage,chatId:selectedchat});
+    setNewMessage('')
+    getAllChats()
 
   }
   return (
@@ -115,18 +134,19 @@ const SingleChat = () => {
    
               
             
-            </Box>
+            </Box >
             {/* chat message */}
 
              <Box display='flex' flexDirection='column' sx={messageBoxStyle}>
-             <Box flexGrow={1} >
-              sasa
+             <Box sx={messageStyle} flexGrow={1} >
+
+              <ScrollableChat/>
              </Box>
            
-             <Box display='flex'>
+             <Box display='flex' component='form' onSubmit={handleSendMessage}>
 
-             <TextField onChange={typinghandler} fullWidth size="small" placeholder='type your message......'  variant="outlined" />
-             <Button onClick={sendMessage} variant='contained'>send</Button>
+             <TextField onChange={typinghandler} value={newMessage} fullWidth size="small" placeholder='type your message......'  variant="outlined" />
+             <Button type='submit'  variant='contained'>send</Button>
              </Box>
 
              </Box>
