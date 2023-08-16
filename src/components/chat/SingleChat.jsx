@@ -24,7 +24,7 @@ const SingleChat = () => {
   }
 
   const getSender = (loginuser,chat) =>{
-    return loginuser._id === chat.POne._id? chat.PTwo.name :chat.POne.name
+    return loginuser._id === chat.POne._id? chat.PTwo :chat.POne
   }
   
 
@@ -128,7 +128,7 @@ const SingleChat = () => {
              </Box>
              <ProfileModal user={getSender(loginuser,selectedchat)} open={openmodal} setopenmodal={setopenmodal}/>
                 </> :<>
-                <UpdateGroupChatModal/>
+                <UpdateGroupChatModal />
                 </>
              }
    
@@ -140,7 +140,7 @@ const SingleChat = () => {
              <Box display='flex' flexDirection='column' sx={messageBoxStyle}>
              <Box sx={messageStyle} flexGrow={1} >
 
-              <ScrollableChat/>
+              <ScrollableChat selectedchat={selectedchat}/>
              </Box>
            
              <Box display='flex' component='form' onSubmit={handleSendMessage}>

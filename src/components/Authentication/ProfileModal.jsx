@@ -3,7 +3,8 @@ import React, { useContext } from 'react'
 import { UserContext } from '../../context/UserContext';
 
 const ProfileModal = ({user,open,setopenmodal}) => {
-  const {loginuser} = useContext(UserContext)
+  const {loginuser} = useContext(UserContext);
+
     const style = {
         position: 'absolute',
         top: '50%',
