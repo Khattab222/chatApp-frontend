@@ -2,7 +2,7 @@ import { Avatar, Box, Typography } from "@mui/material";
 import React, { useContext } from "react";
 import { chatcontext } from "../../context/ChatContext";
 
-const UserListItem = ({ user ,handleAccessChat}) => {
+const UserListItem = ({ user ,handleFunction}) => {
 
 
   const itemStyle = {
@@ -22,7 +22,7 @@ const UserListItem = ({ user ,handleAccessChat}) => {
   };
   return (
     <>
-      <Box onClick={()=>handleAccessChat(user._id)}  sx={itemStyle}>
+      <Box onClick={()=>handleFunction(user._id)}  sx={itemStyle}>
         <Avatar sx={{ mr: "5px" }} alt="Remy Sharp" src={user?.pic} />
         <Box>
           <Typography component="div">{user?.name}</Typography>

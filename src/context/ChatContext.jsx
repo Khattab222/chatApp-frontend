@@ -59,7 +59,7 @@ const getchatData = async (chatId) =>{
   }
   try {
     const {data} =await BaseUrl.get(`/chat/ovo/${chatId}`,config);
-    
+    setSelectedchat(data.chat)
   } catch (error) {
     toast.error(error.response.data.Error)
   }
