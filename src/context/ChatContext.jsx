@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import BaseUrl from "./Api";
 import { toast } from "react-toastify";
+import socket from "../socket/socket";
 
 
 export const chatcontext = createContext(null);
@@ -8,6 +9,7 @@ export const chatcontext = createContext(null);
 export const ChatContextProvider = (props) =>{
 
 const [selectedchat, setSelectedchat] = useState(null)
+const [messages, setMessages] = useState([])
 const [allChats, setallChats] = useState(null)
 
 const getChat = async (destId) =>{
@@ -74,6 +76,7 @@ const sendMessage = async (message) =>{
     const {data} = await BaseUrl.post(`/chat/`,message,config);
   
     setSelectedchat(data.chat)
+    socket.emit('newMessage',data.chat)
   } catch (error) {
     toast.error(error.response.data.Error)
   }

@@ -3,7 +3,7 @@ import { chatcontext } from '../../context/ChatContext'
 import { Box } from '@mui/material';
 import SingleChat from './SingleChat';
 
-const ChatBox = () => {
+const ChatBox = ({socket}) => {
   const {selectedchat,getAllChats,allChats,setSelectedchat}= useContext(chatcontext);
 
   return (
@@ -17,7 +17,7 @@ const ChatBox = () => {
     mx='5px'
     
     >
-      <SingleChat/>
+      <SingleChat socket={socket}/>
     </Box>
   )
 }

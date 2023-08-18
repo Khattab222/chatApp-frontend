@@ -7,21 +7,40 @@ import ProfileModal from '../Authentication/ProfileModal';
 import UpdateGroupChatModal from './UpdateGroupChatModal';
 import { toast } from 'react-toastify';
 import ScrollableChat from './ScrollableChat';
-import socket from '../../socket/socket';
+import socket from './../../socket/socket';
+
 
 
 const SingleChat = () => {
-  const {selectedchat,getAllChats,allChats,setSelectedchat,getchatData,sendMessage}= useContext(chatcontext);
+  const {selectedchat,getAllChats,allChats,messages,setSelectedchat,getchatData,sendMessage}= useContext(chatcontext);
   const {loginuser}= useContext(UserContext)
   const [openmodal, setopenmodal] = useState(false);
   const [newMessage, setNewMessage] = useState('')
 
 useEffect(() => {
+  
+socket.on('recieveMessage',(message) =>{
+  console.log(message)
+})
+}, )
 
 
-socket.emit('setup',loginuser)
 
-}, [])
+
+useEffect(() => {
+  socket.emit('joinchat', selectedchat?._id)
+
+  socket.on('connectedRoom',(data)=> console.log(data))
+
+
+}, [selectedchat])
+// useEffect(() => {
+  
+//   socket.on('connectedRoom',(data)=> console.log(data))
+
+// }, [socket])
+
+
 
   const messageStyle = {
     display: "flex",

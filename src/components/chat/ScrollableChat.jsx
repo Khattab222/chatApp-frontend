@@ -13,13 +13,13 @@ function ScrollableChat({selectedchat}) {
    if (selectedchat?.messages) {
     setallMessages(selectedchat.messages)
    }
-console.log(allMessages)
+
   }, [selectedchat])
   
 
 
   const getSender = (loginuser,chat) =>{
-    return loginuser._id === chat.POne._id? chat.PTwo :chat.POne
+    return loginuser._id === chat.POne?._id? chat.PTwo :chat.POne
   }
   
   return (
@@ -29,13 +29,13 @@ console.log(allMessages)
           return(
             <Typography display={'flex'} alignItems='center' justifyContent={loginuser._id === message.from? "end":"start"} my={1} key={i} >
               {
-                loginuser._id != message.from?<Avatar alt="Remy Sharp" src={getSender(loginuser,selectedchat).pic} /> : ""
+                loginuser._id != message.from?<Avatar alt="Remy Sharp" src={getSender(loginuser,selectedchat)?.pic} /> : ""
               }
               
-              <div style={{padding:'5px',borderRadius:'8px',marginLeft:'5px',backgroundColor:loginuser._id != message.from? "#BEE3F8":"#89F5D0"}}>
+              <Typography style={{padding:'5px',borderRadius:'8px',marginLeft:'5px',backgroundColor:loginuser._id != message.from? "#BEE3F8":"#89F5D0"}}>
 
               {message.messageText}
-              </div>
+              </Typography>
               
               </Typography>
           )

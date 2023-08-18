@@ -6,7 +6,9 @@ import { useEffect } from 'react'
 import ChatLoading from './ChatLoading';
 import { UserContext } from '../../context/UserContext'
 import GroupChatModal from './GroupChatModal'
-import socket from '../../socket/socket'
+
+
+
 
 const MyChats = () => {
   const {selectedchat,getAllChats,allChats,setSelectedchat,getchatData}= useContext(chatcontext);
@@ -15,9 +17,13 @@ const MyChats = () => {
 // get all chat for user
   useEffect(() => {
     getAllChats()
-  }, [])
+   
+    console.log(allChats)
+  }, [])  
   useEffect(() => {
     getAllChats()
+    // socket.emit('joinchat', selectedchat?._id)
+   
   }, [selectedchat])
   
 const getSender = (loginuser,chat) =>{
@@ -29,7 +35,7 @@ const getSender = (loginuser,chat) =>{
 const handleSelectChat =async (chat) =>{
   setSelectedchat(chat);
 await  getchatData(chat._id)
-socket.emit('joinchat', selectedchat?._id)
+
 
 }
   return (

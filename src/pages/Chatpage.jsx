@@ -5,7 +5,7 @@ import MyChats from '../components/chat/MyChats'
 import ChatBox from '../components/chat/ChatBox'
 import { chatcontext } from '../context/ChatContext'
 
-const Chatpage = () => {
+const Chatpage = ({socket}) => {
   const {selectedchat}= useContext(chatcontext)
 
   return (
@@ -16,11 +16,11 @@ const Chatpage = () => {
    
   <Box sx={{display:'flex',justifyContent:'space-between',minHeight:'90vh',p:'10px'}} >
 
-   <MyChats/>
+   <MyChats />
  
     
 
-      <ChatBox/>
+      <ChatBox socket={socket}/>
   </Box>
     
 
