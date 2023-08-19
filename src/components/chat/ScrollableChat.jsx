@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import ScrollableFeed from 'react-scrollable-feed'
 import { UserContext } from '../../context/UserContext'
+import socket from '../../socket/socket'
 
 function ScrollableChat({selectedchat}) {
   const [allMessages, setallMessages] = useState([]);
@@ -16,6 +17,7 @@ function ScrollableChat({selectedchat}) {
 
   }, [selectedchat])
   
+
 
 
   const getSender = (loginuser,chat) =>{

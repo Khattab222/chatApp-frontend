@@ -10,35 +10,49 @@ import ScrollableChat from './ScrollableChat';
 import socket from './../../socket/socket';
 
 
-
+let selectedChatCompare;
 const SingleChat = () => {
   const {selectedchat,getAllChats,allChats,messages,setSelectedchat,getchatData,sendMessage}= useContext(chatcontext);
   const {loginuser}= useContext(UserContext)
   const [openmodal, setopenmodal] = useState(false);
-  const [newMessage, setNewMessage] = useState('')
+  const [newMessage, setNewMessage] = useState('');
+  const [socketConnected, setSocketConnected] = useState(false);
+  const [typing, settyping] = useState(false)
+  const [istyping, setistyping] = useState(false)
+
+  useEffect(() => {
+  
+  
+    selectedChatCompare= selectedchat
+  }, [selectedchat])
+
+
+
 
 useEffect(() => {
   
 socket.on('recieveMessage',(message) =>{
-  console.log(message)
+
+if (!selectedChatCompare || message._id != selectedChatCompare._id) {
+  // give notification
+}else{
+  setSelectedchat(message)
+}
 })
 }, )
 
 
 
 
+
 useEffect(() => {
   socket.emit('joinchat', selectedchat?._id)
-
-  socket.on('connectedRoom',(data)=> console.log(data))
-
-
-}, [selectedchat])
-// useEffect(() => {
   
-//   socket.on('connectedRoom',(data)=> console.log(data))
+socket.on('connectedRoom',()=>setSocketConnected(true))
+socket.on('typing',()=>setistyping(true))
+socket.on('stopTyping',()=>setistyping(false))
 
-// }, [socket])
+}, [])
 
 
 
@@ -47,7 +61,8 @@ useEffect(() => {
     flexDirection:'column',
     overflowY:'scroll',
     scrollbars:'none',
-    padding:'10px'
+    padding:'10px',
+    height:'600px'
   }
 
   const getSender = (loginuser,chat) =>{
@@ -69,6 +84,21 @@ useEffect(() => {
   // handle typing message
   const typinghandler =(e) =>{
     setNewMessage(e.target.value);
+    if (!socketConnected) return;
+    if (!typing) {
+      settyping(true)
+      socket.emit('typing',selectedchat._id)
+    }
+    let lastTyingTime = new Date().getTime();
+    let timerLength = 3000;
+    setTimeout(() => {
+      let timeNow = new Data().getTime();
+      let timeDiff = timeNow-lastTyingTime;
+      if (timeDiff >= timerLength && typing) {
+        socket.emit('stopTyping',selectedchat._id);
+        settyping(false)
+      }
+    }, timerLength);
    
   }
 
@@ -161,9 +191,9 @@ useEffect(() => {
 
               <ScrollableChat selectedchat={selectedchat}/>
              </Box>
-           
+            {istyping? <p>loading</p>:""}
              <Box display='flex' component='form' onSubmit={handleSendMessage}>
-
+             
              <TextField onChange={typinghandler} value={newMessage} fullWidth size="small" placeholder='type your message......'  variant="outlined" />
              <Button type='submit'  variant='contained'>send</Button>
              </Box>

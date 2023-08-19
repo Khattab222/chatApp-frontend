@@ -18,11 +18,11 @@ const MyChats = () => {
   useEffect(() => {
     getAllChats()
    
-    console.log(allChats)
+ 
   }, [])  
   useEffect(() => {
     getAllChats()
-    // socket.emit('joinchat', selectedchat?._id)
+
    
   }, [selectedchat])
   
