@@ -17,15 +17,21 @@ const SingleChat = () => {
   const [openmodal, setopenmodal] = useState(false);
   const [newMessage, setNewMessage] = useState('');
   const [socketConnected, setSocketConnected] = useState(false);
-  const [typing, settyping] = useState(false)
+
   const [istyping, setistyping] = useState(false)
 
   useEffect(() => {
-  
-  
-    selectedChatCompare= selectedchat
+    socket.emit('joinchat', selectedchat?._id)
+
+    selectedChatCompare= selectedchat;
+
   }, [selectedchat])
 
+useEffect(() => {
+  
+socket.emit('setup',loginuser);
+socket.on('connected',()=>setSocketConnected(true))
+}, [])
 
 
 
@@ -39,20 +45,17 @@ if (!selectedChatCompare || message._id != selectedChatCompare._id) {
   setSelectedchat(message)
 }
 })
+
+
+socket.on('typing',()=>setistyping(true))
+socket.on('stopTyping',()=>setistyping(false))
 }, )
 
 
 
 
 
-useEffect(() => {
-  socket.emit('joinchat', selectedchat?._id)
-  
-socket.on('connectedRoom',()=>setSocketConnected(true))
-socket.on('typing',()=>setistyping(true))
-socket.on('stopTyping',()=>setistyping(false))
 
-}, [])
 
 
 
@@ -85,18 +88,18 @@ socket.on('stopTyping',()=>setistyping(false))
   const typinghandler =(e) =>{
     setNewMessage(e.target.value);
     if (!socketConnected) return;
-    if (!typing) {
-      settyping(true)
-      socket.emit('typing',selectedchat._id)
-    }
+
+    socket.emit('typing',selectedchat._id)
+
     let lastTyingTime = new Date().getTime();
-    let timerLength = 3000;
+    let timerLength = 2000;
     setTimeout(() => {
-      let timeNow = new Data().getTime();
+      let timeNow = new Date().getTime();
       let timeDiff = timeNow-lastTyingTime;
-      if (timeDiff >= timerLength && typing) {
+      if (timeDiff >= timerLength ) {
+      
         socket.emit('stopTyping',selectedchat._id);
-        settyping(false)
+    
       }
     }, timerLength);
    
@@ -109,6 +112,7 @@ socket.on('stopTyping',()=>setistyping(false))
       return toast.error('please type message')
     }
     sendMessage({messageText:newMessage,chatId:selectedchat});
+    // settyping(false)
     setNewMessage('')
     getAllChats()
 

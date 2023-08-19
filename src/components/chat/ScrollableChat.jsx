@@ -29,7 +29,7 @@ function ScrollableChat({selectedchat}) {
       {
         allMessages&&allMessages.map((message,i) =>{
           return(
-            <Typography display={'flex'} alignItems='center' justifyContent={loginuser._id === message.from? "end":"start"} my={1} key={i} >
+            <Typography component={'span'} variant={'body2'} display={'flex'} alignItems='center' justifyContent={loginuser._id === message.from? "end":"start"} my={1} key={i} >
               {
                 loginuser._id != message.from?<Avatar alt="Remy Sharp" src={getSender(loginuser,selectedchat)?.pic} /> : ""
               }
