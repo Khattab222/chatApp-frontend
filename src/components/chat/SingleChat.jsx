@@ -8,12 +8,14 @@ import UpdateGroupChatModal from './UpdateGroupChatModal';
 import { toast } from 'react-toastify';
 import ScrollableChat from './ScrollableChat';
 import socket from './../../socket/socket';
+import { Player, Controls } from "@lottiefiles/react-lottie-player";
 
+import animationData from '../../animation/typing.json'
 
 let selectedChatCompare;
 let Room ;
 const SingleChat = () => {
-  const {selectedchat,getAllChats,allChats,messages,setSelectedchat,getchatData,sendMessage}= useContext(chatcontext);
+  const {selectedchat,getAllChats,allChats,notification,setNotification,messages,setSelectedchat,getchatData,sendMessage}= useContext(chatcontext);
   const {loginuser}= useContext(UserContext)
   const [openmodal, setopenmodal] = useState(false);
   const [newMessage, setNewMessage] = useState('');
@@ -42,6 +44,7 @@ socket.on('recieveMessage',(message) =>{
 
 if (!selectedChatCompare || message._id != selectedChatCompare._id) {
   // give notification
+
 }else{
   setSelectedchat(message)
 }
@@ -63,7 +66,6 @@ socket.on('stopTyping',(room)=>{
 
 })
 }, )
-
 
 
 
@@ -208,7 +210,17 @@ socket.on('stopTyping',(room)=>{
 
               <ScrollableChat selectedchat={selectedchat}/>
              </Box>
-            {istyping && Room == selectedchat?._id? <p>loading</p>:""}
+            {istyping && Room == selectedchat?._id? <p>
+              <Player
+        autoplay
+        speed={1}
+        loop
+        src= {animationData}
+        style={{  width: "80px" }}
+      >
+     
+      </Player>
+            </p>:""}
              <Box display='flex' component='form' onSubmit={handleSendMessage}>
              
              <TextField onChange={typinghandler} value={newMessage} fullWidth size="small" placeholder='type your message......'  variant="outlined" />

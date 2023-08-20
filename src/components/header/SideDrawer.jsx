@@ -133,7 +133,7 @@ Search User ...
     
       searchResult?.map((user) =>{
         return(
-          <UserListItem handleAccessChat={handleAccessChat}  user={user} key={user._id} />
+          <UserListItem handleFunction={handleAccessChat}  user={user} key={user._id} />
         )
       })
     

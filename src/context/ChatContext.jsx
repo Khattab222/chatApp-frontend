@@ -11,6 +11,7 @@ export const ChatContextProvider = (props) =>{
 const [selectedchat, setSelectedchat] = useState(null)
 const [messages, setMessages] = useState([])
 const [allChats, setallChats] = useState(null)
+const [notification, setNotification] = useState([])
 
 const getChat = async (destId) =>{
   try {
@@ -156,7 +157,7 @@ const removeUserFromGroup =async (chatId,userId)=>{
 
 
     return(
-        <chatcontext.Provider value={{sendMessage,getChat,accessChat,getchatData,removeUserFromGroup,selectedchat,getAllChats,allChats,createGroup,setSelectedchat,UpdateChatName,addUserToGroup}}>
+        <chatcontext.Provider value={{sendMessage,setNotification,notification,getChat,accessChat,getchatData,removeUserFromGroup,selectedchat,getAllChats,allChats,createGroup,setSelectedchat,UpdateChatName,addUserToGroup}}>
             { props.children  }
         </chatcontext.Provider>
     )

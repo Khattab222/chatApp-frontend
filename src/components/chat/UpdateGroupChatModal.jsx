@@ -25,7 +25,7 @@ const UpdateGroupChatModal = ({selectedchate}) => {
 
 
 
-console.log(selectedchat)
+
 
 
 
