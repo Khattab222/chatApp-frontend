@@ -12,8 +12,8 @@ import { Box } from '@mui/material';
 import UserListItem from './UserListItem';
 import { UserContext } from '../../context/UserContext';
 
-const UpdateGroupChatModal = ({fetchAgain,setFetchAgain}) => {
-  const {selectedchat,UpdateChatName,getAllChats,addUserToGroup,removeUserFromGroup}=useContext(chatcontext)
+const UpdateGroupChatModal = ({selectedchate}) => {
+  const {UpdateChatName,getAllChats,addUserToGroup,removeUserFromGroup,selectedchat,getchatData}=useContext(chatcontext)
   const {searchResult,searchUsers}=useContext(UserContext)
     const [open, setOpen] = React.useState(false);
     const [chatName, setchatName] = useState("");
@@ -22,10 +22,11 @@ const UpdateGroupChatModal = ({fetchAgain,setFetchAgain}) => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-useEffect(() => {
-  
 
-}, [])
+
+
+console.log(selectedchat)
+
 
 
 
@@ -35,7 +36,9 @@ useEffect(() => {
     };
   
     const handleDelete =async (userId) => {
-      await removeUserFromGroup(selectedchat._id,userId)
+      await removeUserFromGroup(selectedchat._id,userId);
+     
+   
     };
     
 

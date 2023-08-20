@@ -11,6 +11,7 @@ import socket from './../../socket/socket';
 
 
 let selectedChatCompare;
+let Room ;
 const SingleChat = () => {
   const {selectedchat,getAllChats,allChats,messages,setSelectedchat,getchatData,sendMessage}= useContext(chatcontext);
   const {loginuser}= useContext(UserContext)
@@ -47,8 +48,20 @@ if (!selectedChatCompare || message._id != selectedChatCompare._id) {
 })
 
 
-socket.on('typing',()=>setistyping(true))
-socket.on('stopTyping',()=>setistyping(false))
+socket.on('typing',(room)=>{
+  Room = room
+
+  setistyping(true)
+
+
+})
+socket.on('stopTyping',(room)=>{
+
+  Room = room
+  setistyping(false)
+
+
+})
 }, )
 
 
@@ -181,7 +194,7 @@ socket.on('stopTyping',()=>setistyping(false))
              </Box>
              <ProfileModal user={getSender(loginuser,selectedchat)} open={openmodal} setopenmodal={setopenmodal}/>
                 </> :<>
-                <UpdateGroupChatModal />
+                <UpdateGroupChatModal selectedchate={selectedchat} />
                 </>
              }
    
@@ -195,7 +208,7 @@ socket.on('stopTyping',()=>setistyping(false))
 
               <ScrollableChat selectedchat={selectedchat}/>
              </Box>
-            {istyping? <p>loading</p>:""}
+            {istyping && Room == selectedchat?._id? <p>loading</p>:""}
              <Box display='flex' component='form' onSubmit={handleSendMessage}>
              
              <TextField onChange={typinghandler} value={newMessage} fullWidth size="small" placeholder='type your message......'  variant="outlined" />
