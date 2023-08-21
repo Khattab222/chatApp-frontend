@@ -13,8 +13,9 @@ import { chatcontext } from '../../context/ChatContext'
 
 const SideDrawer = () => {
   const {loginuser} = useContext(UserContext);
-  const {accessChat} = useContext(chatcontext)
+  const {accessChat,setNotification,notification} = useContext(chatcontext)
   const [anchorEl, setAnchorEl] =useState(null);
+  const [anchorElNotification, setAnchorElNotification] =useState(null);
   const [openmodal, setopenmodal] = useState(false);
   const [showdrawer, setshowdrawer] = useState(false)
   const [searchResult, setSearchResult] = useState([])
@@ -24,6 +25,7 @@ const [loading, setLoading] = useState(false)
   const inputElement = useRef()
 
   const open = Boolean(anchorEl);
+  const notificationopen = Boolean(anchorElNotification);
   const handleClick =(e) =>{
     setAnchorEl(e.target)
   }
@@ -71,6 +73,15 @@ setshowdrawer(false)
 
 }
 
+
+// for notification
+const openNotifactio = (e) =>{
+  setAnchorElNotification(e.target)
+}
+
+const handleCloseNotification = () => {
+  setAnchorElNotification(null);
+};
   return (
     <div>
 <AppBar color='primary' position='sticky'>
@@ -86,11 +97,21 @@ Search User ...
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
+              onClick={openNotifactio}
             >
               <Badge badgeContent={17} color="error">
                 <Notifications />
               </Badge>
             </IconButton>
+            <Menu
+   anchorEl={anchorElNotification}
+   open={notificationopen}
+   onClose={handleCloseNotification}
+
+   >
+
+        <MenuItem sx={{mr:5}} >{!notification.length?"no Messages":""}</MenuItem>
+   </Menu>
     
    <Button sx={{ml:'5px'}} >
    <Avatar  
