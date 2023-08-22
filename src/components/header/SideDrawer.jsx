@@ -1,6 +1,6 @@
 import { Notifications, Search } from '@mui/icons-material'
 import { AppBar, Avatar, Badge, Box, Button, Divider, Drawer, IconButton, Input, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material'
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { UserContext } from '../../context/UserContext'
 import ProfileModal from '../Authentication/ProfileModal'
 import { useNavigate } from 'react-router-dom'
@@ -21,8 +21,11 @@ const SideDrawer = () => {
   const [searchResult, setSearchResult] = useState([])
 const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
-
+  const getSender = (loginuser,chat) =>{
+    return loginuser._id === chat.POne._id? chat.PTwo :chat.POne
+  }
   const inputElement = useRef()
+
 
   const open = Boolean(anchorEl);
   const notificationopen = Boolean(anchorElNotification);
@@ -109,8 +112,14 @@ Search User ...
    onClose={handleCloseNotification}
 
    >
+    {!notification.length?<MenuItem sx={{mr:5}} >no Messages</MenuItem>:
+    
+    notification.map((noti) => (
+      <MenuItem key={noti._id} sx={{mr:5}} >{noti.isGroupChat?`new message in ${noti.chatName} chat`:`new message from ${getSender(loginuser,noti).name}`}</MenuItem>
+    ))
+    }
 
-        <MenuItem sx={{mr:5}} >{!notification.length?"no Messages":""}</MenuItem>
+        
    </Menu>
     
    <Button sx={{ml:'5px'}} >

@@ -44,7 +44,9 @@ socket.on('recieveMessage',(message) =>{
 
 if (!selectedChatCompare || message._id != selectedChatCompare._id) {
   // give notification
-if (!notification) {
+
+if (!notification.includes(message)) {
+  console.log(message);
    setNotification([...notification,message])
 }
 
