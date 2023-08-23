@@ -75,13 +75,13 @@ await  getchatData(chat._id)
           allChats? (
             <Stack overflowy="scroll" >
              { 
-             allChats.map((chat) =>{
+             allChats.map((chat,i) =>{
               return(
                 <Box 
                 sx={{cursor:'pointer'}}
                 bgcolor={selectedchat?._id === chat._id?"#38B2AC" :"#E8E8E8"}
                 color={selectedchat?._id === chat._id?"#fff" :"black"}
-                key={chat._id}
+                key={i}
                 borderRadius='5px'
                 p={1}
                 m={1}

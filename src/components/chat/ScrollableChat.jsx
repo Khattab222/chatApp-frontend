@@ -6,9 +6,11 @@ import { useEffect } from 'react'
 import ScrollableFeed from 'react-scrollable-feed'
 import { UserContext } from '../../context/UserContext'
 import socket from '../../socket/socket'
+import { chatcontext } from '../../context/ChatContext'
 
-function ScrollableChat({selectedchat}) {
+function ScrollableChat() {
   const [allMessages, setallMessages] = useState([]);
+  const {selectedchat} = useContext(chatcontext)
   const {loginuser} = useContext(UserContext)
   useEffect(() => {
    if (selectedchat?.messages) {
@@ -27,7 +29,7 @@ function ScrollableChat({selectedchat}) {
   return (
     <ScrollableFeed >
       {
-        allMessages&&allMessages.map((message,i) =>{
+        selectedchat.messages&&selectedchat.messages.map((message,i) =>{
           return(
             <Typography component={'span'} variant={'body2'} display={'flex'} alignItems='center' justifyContent={loginuser._id === message.from? "end":"start"} my={1} key={i} >
               {

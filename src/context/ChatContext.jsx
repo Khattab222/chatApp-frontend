@@ -47,8 +47,10 @@ const getAllChats = async () =>{
         headers: {'authorization': `chat__${localStorage.getItem("token")}`}
       }
       const {data} = await BaseUrl.get(`/chat/allchats`,config);
-  
-      setallChats(data.chats)
+     let jsonObject = data.chats.map(JSON.stringify);
+     let uiqueSet = new Set(jsonObject)
+     let unique = Array.from(uiqueSet).map(JSON.parse)
+      setallChats(unique)
   } catch (error) {
     toast.error(error.response.data.Error)
   }

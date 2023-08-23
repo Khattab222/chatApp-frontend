@@ -13,7 +13,7 @@ import { chatcontext } from '../../context/ChatContext'
 
 const SideDrawer = () => {
   const {loginuser} = useContext(UserContext);
-  const {accessChat,setNotification,notification} = useContext(chatcontext)
+  const {accessChat,setNotification,notification,setSelectedchat} = useContext(chatcontext)
   const [anchorEl, setAnchorEl] =useState(null);
   const [anchorElNotification, setAnchorElNotification] =useState(null);
   const [openmodal, setopenmodal] = useState(false);
@@ -102,7 +102,7 @@ Search User ...
               color="inherit"
               onClick={openNotifactio}
             >
-              <Badge badgeContent={17} color="error">
+              <Badge badgeContent={notification.length} color="error">
                 <Notifications />
               </Badge>
             </IconButton>
@@ -115,7 +115,11 @@ Search User ...
     {!notification.length?<MenuItem sx={{mr:5}} >no Messages</MenuItem>:
     
     notification.map((noti) => (
-      <MenuItem key={noti._id} sx={{mr:5}} >{noti.isGroupChat?`new message in ${noti.chatName} chat`:`new message from ${getSender(loginuser,noti).name}`}</MenuItem>
+      <MenuItem onClick={()=>{
+        setSelectedchat(noti)
+        setNotification(notification.filter((n) => n._id != noti._id))
+        handleCloseNotification()
+      }} key={noti._id} sx={{mr:5}} >{noti.isGroupChat?`new message in ${noti.chatName} chat`:`new message from ${getSender(loginuser,noti).name}`}</MenuItem>
     ))
     }
 
