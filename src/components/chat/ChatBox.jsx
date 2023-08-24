@@ -11,7 +11,7 @@ const ChatBox = ({socket}) => {
     display={{xs:selectedchat?'flex':'none',md:'flex'}}
     flexDirection='column'
     p={2}
-    bgcolor='#fff'
+    bgcolor='info.contrastText'
     width={{md:'68%',xs:'100%'}}
     borderRadius='10px'
     mx='5px'

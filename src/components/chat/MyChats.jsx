@@ -1,7 +1,7 @@
 import { Box, Button, Typography,Stack  } from '@mui/material'
 import React, { useContext } from 'react'
 import { chatcontext } from '../../context/ChatContext'
-import { Add } from '@mui/icons-material'
+import { Add, Palette } from '@mui/icons-material'
 import { useEffect } from 'react'
 import ChatLoading from './ChatLoading';
 import { UserContext } from '../../context/UserContext'
@@ -44,7 +44,7 @@ await  getchatData(chat._id)
  display={{xs:selectedchat?'none':'flex',md:'flex'}}
  flexDirection='column'
  p={2}
- bgcolor='#fff'
+ bgcolor='info.contrastText'
  width={{md:'31%',xs:'100%'}}
     
     >
@@ -73,7 +73,7 @@ await  getchatData(chat._id)
       >
         {
           allChats? (
-            <Stack overflowy="scroll" >
+            <Stack overflowy="scroll"  >
              { 
              allChats.map((chat,i) =>{
               return(

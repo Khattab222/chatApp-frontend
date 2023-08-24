@@ -9,7 +9,7 @@ const UserListItem = ({ user ,handleFunction}) => {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    bgcolor: "#E8E8E8",
+    bgcolor: "info.contrastText",
     cursor: "pointer",
     padding: "10px",
     borderRadius: "7px",

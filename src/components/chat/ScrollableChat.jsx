@@ -32,11 +32,15 @@ function ScrollableChat() {
         selectedchat.messages&&selectedchat.messages.map((message,i) =>{
           return(
             <Typography component={'span'} variant={'body2'} display={'flex'} alignItems='center' justifyContent={loginuser._id === message.from? "end":"start"} my={1} key={i} >
+             
               {
-                loginuser._id != message.from?<Avatar alt="Remy Sharp" src={getSender(loginuser,selectedchat)?.pic} /> : ""
+                 !selectedchat.isGroupChat?  loginuser._id != message.from?<Avatar alt="Remy Sharp" src={getSender(loginuser,selectedchat)?.pic} /> : "" :""
+           
               }
               
-              <Typography style={{padding:'5px',borderRadius:'8px',marginLeft:'5px',backgroundColor:loginuser._id != message.from? "#BEE3F8":"#89F5D0"}}>
+              <Typography
+              bgcolor={loginuser._id != message.from? "info.main":"info.light"}
+              style={{padding:'5px',borderRadius:'8px',marginLeft:'5px'}}>
 
               {message.messageText}
               </Typography>

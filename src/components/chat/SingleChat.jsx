@@ -99,7 +99,7 @@ socket.on('stopTyping',(room)=>{
     overflowY:"hidden",
     height:'100%',
     width:'100%',
-    backgroundColor:'#E8E8E8',
+    backgroundColor:'info.contrastText',
     borderRadius:'5px',
  
   }
