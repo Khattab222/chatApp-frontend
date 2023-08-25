@@ -55,7 +55,7 @@ await  getchatData(chat._id)
     </Typography>
     <GroupChatModal>
 
-    <Button variant="outlined" endIcon={<Add />}>
+    <Button variant="outlined" size='small' endIcon={<Add />}>
   New Group Chat
 </Button>
     </GroupChatModal>

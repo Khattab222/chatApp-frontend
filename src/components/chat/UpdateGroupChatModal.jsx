@@ -14,7 +14,7 @@ import { UserContext } from '../../context/UserContext';
 
 const UpdateGroupChatModal = ({selectedchate}) => {
   const {UpdateChatName,getAllChats,addUserToGroup,removeUserFromGroup,selectedchat,getchatData}=useContext(chatcontext)
-  const {searchResult,searchUsers}=useContext(UserContext)
+  const {searchResult,searchUsers,loginUser}=useContext(UserContext)
     const [open, setOpen] = React.useState(false);
     const [chatName, setchatName] = useState("");
     const [Search, setSearch] = useState('')
@@ -119,16 +119,21 @@ await  addUserToGroup(selectedchat._id,userId)
           <Box sx={{ mt: 2,display:'flex',flexWrap:'wrap',gap:1 }}>
             {
               selectedchat?.groupUsers?.map((u,i) =>{
-                return (
-                  <Chip
-                  key={i}
-                  label={u.name}
-                  onClick={handleClick}
-                  onDelete={()=>handleDelete(u._id)}
-                  color="success"
-                  size="small"
-                />
-                )
+           
+                  return (
+                    <Chip
+                    key={i}
+                    label={u.name}
+                    onClick={handleClick}
+                    onDelete={()=>handleDelete(u._id)}
+                    color="success"
+                    size="small"
+                  />
+                  )
+            
+                 
+             
+                
               })
             }
          
