@@ -35,6 +35,7 @@ const accessChat =async (destId) =>{
 
   try {
     const {data} = await BaseUrl.post(`/chat/access/${destId}`,{},config);
+  
     setSelectedchat(data.chat)
   } catch (error) {
     toast.error(error.response.data.Error)

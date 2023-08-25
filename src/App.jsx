@@ -1,5 +1,5 @@
 
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import './App.css'
@@ -15,10 +15,12 @@ import CssBaseline from '@mui/material/CssBaseline';
 const socket = io('http://localhost:5000')
 
 function App() {
-
+const [mode, setmode] = useState("light")
 const {loginuser} = useContext(UserContext)
 useEffect(() => {
-  
+  if (localStorage.getItem("mode")) {
+    setmode(localStorage.getItem("mode"))
+  }
 
   return () => {
     socket.emit('leaveRoom', loginuser._id);
@@ -27,16 +29,16 @@ useEffect(() => {
 
 
 // dark mode
-const darkTheme = createTheme({
+const ThemeMode = createTheme({
   palette: {
-    mode: 'dark',
+    mode: mode,
   },
 });
 
 const router = createBrowserRouter([
-  {path:'/',element:<LayoutRouter/>,children:[
+  {path:'/',element:<LayoutRouter  />,children:[
     {index:true,element:<Home/>},
-    {path:'/chat',element:<Chatpage socket={socket}/>},
+    {path:'/chat',element:<Chatpage setmode={setmode} mode={mode} socket={socket}/>},
   ]}
 ])
 
@@ -44,7 +46,7 @@ const router = createBrowserRouter([
 
 
   return <div className='App'>
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={ThemeMode}>
   <RouterProvider router={router}/>
     <CssBaseline />
   <ToastContainer />

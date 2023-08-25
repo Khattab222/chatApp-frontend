@@ -5,14 +5,14 @@ import MyChats from '../components/chat/MyChats'
 import ChatBox from '../components/chat/ChatBox'
 import { chatcontext } from '../context/ChatContext'
 
-const Chatpage = ({socket}) => {
+const Chatpage = ({socket,mode,setmode}) => {
   const {selectedchat}= useContext(chatcontext)
 
   return (
     <div style={{width:'100%'}}>
 
 
-     <SideDrawer/>
+     <SideDrawer setmode={setmode} mode={mode}/>
    
   <Box sx={{display:'flex',justifyContent:'space-between',minHeight:'90vh',p:'10px'}} >
 

@@ -1,4 +1,4 @@
-import { Notifications, Search } from '@mui/icons-material'
+import { DarkMode, Notifications, Search } from '@mui/icons-material'
 import { AppBar, Avatar, Badge, Box, Button, Divider, Drawer, IconButton, Input, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { UserContext } from '../../context/UserContext'
@@ -11,7 +11,7 @@ import ChatLoading from '../chat/ChatLoading'
 import UserListItem from '../chat/UserListItem'
 import { chatcontext } from '../../context/ChatContext'
 
-const SideDrawer = () => {
+const SideDrawer = ({mode,setmode}) => {
   const {loginuser} = useContext(UserContext);
   const {accessChat,setNotification,notification,setSelectedchat} = useContext(chatcontext)
   const [anchorEl, setAnchorEl] =useState(null);
@@ -24,18 +24,21 @@ const [loading, setLoading] = useState(false)
   const getSender = (loginuser,chat) =>{
     return loginuser._id === chat.POne._id? chat.PTwo :chat.POne
   }
-  const inputElement = useRef()
-
+  const inputElement = useRef(null)
 
   const open = Boolean(anchorEl);
   const notificationopen = Boolean(anchorElNotification);
   const handleClick =(e) =>{
-    setAnchorEl(e.target)
+    setAnchorEl(e.target);
+    
+  
   }
   const handleClose = () => {
     setAnchorEl(null);
   };
  
+
+
 
   // logOut function
   const logOut = () =>{
@@ -85,6 +88,19 @@ const openNotifactio = (e) =>{
 const handleCloseNotification = () => {
   setAnchorElNotification(null);
 };
+
+// toggle mode
+const handleChangeMode = () =>{
+  if (mode ==='light') {
+    setmode('dark')
+    localStorage.setItem("mode","dark")
+  }else{
+    setmode('light')
+    localStorage.setItem("mode","light")
+
+  }
+  
+}
   return (
     <div>
 <AppBar color='primary' position='sticky'>
@@ -96,6 +112,7 @@ Search User ...
     </Tooltip>
     <Typography variant='h4' component='h1'>Talk-A-Tive</Typography>
   <div>
+
   <IconButton
               size="large"
               aria-label="show 17 new notifications"
@@ -132,6 +149,10 @@ Search User ...
    alt={loginuser.name}
    src={loginuser.pic}></Avatar>
    </Button>
+   <Button onClick={handleChangeMode} variant='contained' endIcon={<DarkMode/>}  >
+   Mode
+   </Button>
+   
    <Menu
    anchorEl={anchorEl}
    open={open}
@@ -158,7 +179,7 @@ Search User ...
     <Typography variant='h6' sx={{textAlign:'center' ,fontWeight:'600' }}>Search Users</Typography>
     <Box sx={{p:2,display:'flex'}} >
 
-<Input ref={inputElement} onChange={(e)=>handleSearch(e)} placeholder="search by name or email" />
+<Input inputRef={inputElement} name='search' type='text' onChange={(e)=>handleSearch(e)} placeholder="search by name or email" />
 
     </Box>
     <Box sx={{margin:'15px',fontWeight:'bold'}}>

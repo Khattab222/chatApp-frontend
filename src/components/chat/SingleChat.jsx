@@ -27,7 +27,7 @@ const SingleChat = () => {
     socket.emit('joinchat', selectedchat?._id)
 
     selectedChatCompare= selectedchat;
-
+    console.log(selectedchat);
   }, [selectedchat])
 
 useEffect(() => {
