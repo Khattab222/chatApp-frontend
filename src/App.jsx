@@ -12,7 +12,8 @@ import Chatpage from './pages/Chatpage';
 import { io } from "socket.io-client"
 import { UserContext } from './context/UserContext';
 import CssBaseline from '@mui/material/CssBaseline';
-const socket = io('http://localhost:5000')
+import socket from './socket/socket';
+
 
 function App() {
 const [mode, setmode] = useState("light")

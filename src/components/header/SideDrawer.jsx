@@ -110,7 +110,7 @@ const handleChangeMode = () =>{
 Search User ...
     </Button>
     </Tooltip>
-    <Typography variant='h4' component='h1'>Talk-A-Tive</Typography>
+    <Typography display={{xs:"none",md:'block'}} variant='h4' component='h1'>chat</Typography>
   <div>
 
   <IconButton
@@ -149,7 +149,7 @@ Search User ...
    alt={loginuser.name}
    src={loginuser.pic}></Avatar>
    </Button>
-   <Button onClick={handleChangeMode} variant='contained' endIcon={<DarkMode/>}  >
+   <Button size='small' onClick={handleChangeMode} variant='contained' endIcon={<DarkMode/>}  >
    Mode
    </Button>
    
