@@ -1,6 +1,6 @@
 import { io } from "socket.io-client"
 
-const ENDPOINT= 'http://localhost:5000';
+const ENDPOINT= 'https://chat-app-backend-gray-eight.vercel.app/';
 
 let socket;
 let selectedChatCompare;
