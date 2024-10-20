@@ -32,7 +32,6 @@ const UpdateGroupChatModal = ({selectedchate}) => {
 
 
     const handleClick = () => {
-      console.info('You clicked the Chip.');
     };
   
     const handleDelete =async (userId) => {

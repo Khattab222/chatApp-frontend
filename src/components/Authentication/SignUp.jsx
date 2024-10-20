@@ -38,13 +38,13 @@ const SignUp = () => {
           return toast.error("name required")
         }
         if (!email) {
-          return toast.error("name required")
+          return toast.error("email required")
         }
         if (!password) {
-          return toast.error("name required")
+          return toast.error("password required")
         }
         if (!file) {
-          return toast.error("name required")
+          return toast.error("photo required")
         }
         setloading(true)
         let form = new FormData()

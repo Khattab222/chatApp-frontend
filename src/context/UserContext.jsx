@@ -1,10 +1,14 @@
 import { createContext, useContext, useState } from "react";
 import BaseUrl from "./Api";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 
 export const UserContext = createContext(null)
 export function UserContextProvider({children}) {
+
+  
+
     const [searchResult, setsearchResult] = useState([])
     const [loginuser, setLoginuser] = useState(localStorage.getItem('loginUser') != null?JSON.parse(localStorage.getItem('loginUser')):{})
     // registration
@@ -17,8 +21,9 @@ const signup =async (form) => {
     try {
     const {data} = await BaseUrl.post(`/auth`,form,config)
     toast.success("sign up success")
+
     } catch (error) {
-        console.log(error.response.data.Error);
+      
         toast.error(error.response.data.Error)
     }
 }

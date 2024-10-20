@@ -27,7 +27,7 @@ const SingleChat = () => {
     socket.emit('joinchat', selectedchat?._id)
 
     selectedChatCompare= selectedchat;
-    console.log(selectedchat);
+  
   }, [selectedchat])
 
 useEffect(() => {
@@ -46,7 +46,7 @@ if (!selectedChatCompare || message._id != selectedChatCompare._id) {
   // give notification
 
 if (!notification.includes(message)) {
-  console.log(message);
+
    setNotification([...notification,message])
 }
 
